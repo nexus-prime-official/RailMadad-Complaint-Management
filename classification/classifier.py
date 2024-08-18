@@ -3,33 +3,32 @@ from langchain_core.prompts import ChatPromptTemplate
 
 # Define the list of possible classes
 classes = [
-    "Facilities for Women with Special needs",
+    "Coach - Maintenance/Facilities",
     "Electrical Equipment",
     "Medical Assistance",
     "Catering / Vending Services",
-    "Facilities for Persons with Disabilities",
     "Water Availability",
-    "Goods",
-    "Catering & Vending Services",
     "Punctuality",
-    "Unreserved Ticketing",
     "Security",
-    "Reserved Ticketing",
-    "Luggage / Parcels",
+    "Unreserved / Reserved Ticketing",
     "Coach - Cleanliness",
-    "Cleanliness",
     "Staff Behaviour",
     "Refund of Tickets",
     "Passenger Amenities",
     "Bed Roll",
     "Corruption / Bribery",
-    "Coach - Maintenance",
-    "Miscellaneous"
+    "Miscellaneous",
+    "none"
 ]
 
-# Create a template for classification
+# Updated template for strict classification
 template = """
-Classify the user input into one of the following categories:
+You are a one-shot classification model designed to categorize complaints specifically related to railways and railway services.
+Your task is to accurately classify the given complaint into one of the following predefined categories.
+The classification must be precise, and you must output only one category without any additional text or explanation.
+Ensure that the output is a single category that best fits the complaint. There should be no ambiguity or overlap between categories.
+
+Categories:
 {classes}
 
 User input: {input_text}
@@ -43,13 +42,9 @@ prompt = ChatPromptTemplate.from_template(template)
 chain = prompt | model
 
 def classify_input():
-    print("Welcome to the classification chatbot. Type 'exit' to quit.")
-    while True:
-        input_text = input("You: ")
-        if input_text.lower().strip() == "exit":
-            break
-        result = chain.invoke({"input_text": input_text, "classes": "\n".join(classes)})
-        print(f"Classified as: {result}")
+    input_text = input("You: ")
+    result = chain.invoke({"input_text": input_text, "classes": "\n".join(classes)})
+    print(f"Classified as: {result}")
 
 if __name__ == "__main__":
     classify_input()

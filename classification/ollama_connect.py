@@ -2,7 +2,7 @@ from langchain_ollama import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
 
 template = """
-answer the question below
+
 Here is the converstion history: {context}
 Question: {question}
 Answer:
@@ -14,7 +14,7 @@ chain = prompt | model
 
 def handle_conversation():
     context=""
-    print("Welcome to the chatbot. Type 'exit' to quit.")
+    
     while True:
         question = input("You: ")
         if question.lower().strip() == "exit":
@@ -26,3 +26,5 @@ def handle_conversation():
 
 if __name__ == "__main__":
     handle_conversation()
+
+
