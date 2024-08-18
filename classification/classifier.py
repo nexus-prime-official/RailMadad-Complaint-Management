@@ -21,7 +21,6 @@ classes = [
     "none"
 ]
 
-# Updated template for strict classification
 template = """
 You are a one-shot classification model designed to categorize complaints specifically related to railways and railway services.
 Your task is to accurately classify the given complaint into one of the following predefined categories.
@@ -38,13 +37,11 @@ Category:
 model = OllamaLLM(model="llama3.1")
 prompt = ChatPromptTemplate.from_template(template)
 
-# Define the chain
 chain = prompt | model
 
-def classify_input():
-    input_text = input("You: ")
+def classify_input(input_text):
     result = chain.invoke({"input_text": input_text, "classes": "\n".join(classes)})
     print(f"Classified as: {result}")
 
-if __name__ == "__main__":
-    classify_input()
+# if __name__ == "__main__":
+#     classify_input("some other passengers are attacking me")
