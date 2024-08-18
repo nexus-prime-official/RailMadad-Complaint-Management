@@ -1,0 +1,7 @@
+openai-whisper
+torch
+numpy
+pandas
+pillow
+langchain-ollama
+ollama
