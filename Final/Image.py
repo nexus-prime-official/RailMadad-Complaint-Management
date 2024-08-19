@@ -4,16 +4,19 @@ from langchain_ollama import OllamaLLM
 from PIL import Image
 
 # Converting the image to base64
-def convert_to_base64(pil_image):
-    """
-    Convert PIL images to Base64 encoded strings.
+from PIL import Image
+import io
+import base64
 
-    :param pil_image: PIL image
-    :return: Base64 string
-    """
-    buffered = BytesIO()
-    pil_image.save(buffered, format="JPEG")
+def convert_to_base64(uploaded_file):
+    # Convert UploadedFile to PIL Image
+    image = Image.open(uploaded_file)
+    
+    # Save the PIL image to a bytes buffer
+    buffered = io.BytesIO()
+    image.save(buffered, format="JPEG")  # Ensure the format matches what you want
     img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
+    
     return img_str
 
 def describe_image(image_path) -> str:
@@ -39,6 +42,3 @@ def describe_image(image_path) -> str:
     result = llm_with_image_context.invoke(template)
     return result
 
-# Running the description function
-description = describe_image("extraction/sample.jpg")
-print(description)

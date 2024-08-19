@@ -1,5 +1,10 @@
 import streamlit as st
 from PIL import Image
+from classification.classifier import classify_input
+from extraction.Image import convert_to_base64
+from extraction.Audio import transcribe_audio
+from mail_sender.EmailSender import send_email
+from sms.sms import send_sms
 
 
 def input():
@@ -40,6 +45,10 @@ def input():
     if st.button("Submit"):
             st.write("Mobile Number:", number)
             st.write("Complaint:", complaint)
+
+
+print(complaint)
+print(number)
 
 def main():
     st.title("Rail Madad Complaint Management")

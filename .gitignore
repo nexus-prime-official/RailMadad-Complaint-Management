@@ -2,3 +2,4 @@ sms/env_var.py
 classification/ollama_connect.py
 .ipynb_checkpoints
 __pycache__
+Final/env_var.py
