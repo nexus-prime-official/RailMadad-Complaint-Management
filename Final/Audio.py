@@ -24,14 +24,21 @@ def save_np_array_to_tempfile(audio_np_array):
     """
     Save the NumPy array to a temporary WAV file.
     """
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_file:
-        sf.write(temp_file.name, audio_np_array, 16000)  # Assuming 16000 Hz sample rate
-        return temp_file.name
+    temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".wav")
+    sf.write(temp_file.name, audio_np_array, 16000)  # Assuming 16000 Hz sample rate
+    temp_file.close()
+    return temp_file.name
 
 def transcribe_audio(audio_path: str) -> str:
     """
-    Transcribe the audio file at the given path to text.
+    Transcribe the audio file at the given path to text using Whisper.
     """
-    result = model.transcribe(audio_path)
-    return result["text"]
+    try:
+        result = model.transcribe(audio_path)
+        return result["text"]
+    finally:
+        # Clean up the temporary file
+        if audio_path:
+            import os
+            os.remove(audio_path)
 
