@@ -4,15 +4,16 @@ from langchain_ollama import OllamaLLM
 from PIL import Image
 
 # Converting the image to base64
-def convert_to_base64(pil_image):
+def convert_to_base64(uploaded_file):
     """
-    Convert PIL images to Base64 encoded strings.
+    Convert the uploaded image file (BytesIO) to Base64 encoded strings.
 
-    :param pil_image: PIL image
+    :param uploaded_file: Uploaded image file from Streamlit
     :return: Base64 string
     """
+    image = Image.open(uploaded_file)
     buffered = BytesIO()
-    pil_image.save(buffered, format="JPEG")
+    image.save(buffered, format="JPEG")
     img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
     return img_str
 
