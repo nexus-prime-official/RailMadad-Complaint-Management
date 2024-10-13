@@ -4,8 +4,8 @@ from io import BytesIO
 from Audio import convert_audio_to_np_array, save_np_array_to_tempfile, transcribe_audio
 from Image import convert_to_base64
 from classifier import classify_input
-from EmailSender import send_email
-from sms import send_sms
+# from EmailSender import send_email
+# from sms import send_sms
 
 def input():
     st.title("Grievance Details")
@@ -26,6 +26,7 @@ def input():
         uploaded_image = st.file_uploader("Choose an image...", type=["png", "jpg", "jpeg", "bmp", "gif", "tiff"], key="image_uploader")
         if uploaded_image is not None:
             image_uploaded = True
+            # pil_image = Image.open(uploaded_image)
             st.image(Image.open(uploaded_image), caption='Preview of the uploaded image.')
             st.write("Image successfully uploaded and previewed!")
         
@@ -56,7 +57,9 @@ def input():
         # Further processing
         if image_uploaded:
             # Convert the image to base64
+            # pil_image = Image.open(uploaded_image)
             image_path = convert_to_base64(uploaded_image)
+            st.write("Image successfully processed!")
             
         if audio_uploaded:
             # Convert the audio to a NumPy array

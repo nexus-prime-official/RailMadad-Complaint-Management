@@ -35,7 +35,7 @@ User input: {input_text}
 Category:
 """
 
-model = OllamaLLM(model="llama3.1")
+model = OllamaLLM(model="llama3.2")
 prompt = ChatPromptTemplate.from_template(template)
 
 chain = prompt | model
